@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% block title %}{{ vendor.name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h3 class="mb-0"><i class="fas fa-truck me-2"></i>{{ vendor.name }}</h3>
+        <div>
+            <a href="{% url 'vendor_update' vendor.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+            <a href="{% url 'vendor_list' %}" class="btn btn-light btn-sm"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-borderless">
+                    <tr><th width="30%">Status:</th><td><span class="badge bg-{% if vendor.status == 'APPROVED' %}success{% elif vendor.status == 'REJECTED' %}danger{% elif vendor.status == 'UNDER_REVIEW' %}warning{% else %}secondary{% endif %}">{{ vendor.get_status_display }}</span></td></tr>
+                    <tr><th>Website:</th><td><a href="{{ vendor.website_url }}" target="_blank">{{ vendor.website_url|default:"-" }}</a></td></tr>
+                    <tr><th>Headquarters:</th><td>{{ vendor.headquarters_country|default:"-" }}</td></tr>
+                    <tr><th>Support Email:</th><td>{{ vendor.support_email|default:"-" }}</td></tr>
+                    <tr><th>Created:</th><td>{{ vendor.created_at|date:"Y-m-d H:i" }}</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h5>Certifications</h5>
+                <ul class="list-group">
+                    {% for cert in vendor.certifications.all %}
+                        <li class="list-group-item">{{ cert.name }} <span class="badge bg-secondary">{{ cert.issuing_body }}</span></li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">No certifications</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <h5>Metadata</h5>
+                <pre class="bg-light p-2 rounded">{{ vendor.metadata|default:"{}"|pprint }}</pre>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

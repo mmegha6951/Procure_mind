@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% block title %}{{ organization.name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+        <h3 class="mb-0"><i class="fas fa-building me-2"></i>{{ organization.name }}</h3>
+        <div>
+            <a href="{% url 'organization_update' organization.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+            <a href="{% url 'organization_list' %}" class="btn btn-light btn-sm"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-borderless">
+                    <tr><th width="30%">Name:</th><td>{{ organization.name }}</td></tr>
+                    <tr><th>Slug:</th><td>{{ organization.slug }}</td></tr>
+                    <tr><th>Domain:</th><td>{{ organization.domain|default:"-" }}</td></tr>
+                    <tr><th>Default Currency:</th><td>{{ organization.default_currency }}</td></tr>
+                    <tr><th>Annual Budget:</th><td>₹{{ organization.annual_budget|floatformat:2 }}</td></tr>
+                    <tr><th>Created:</th><td>{{ organization.created_at|date:"Y-m-d H:i" }}</td></tr>
+                    <tr><th>Updated:</th><td>{{ organization.updated_at|date:"Y-m-d H:i" }}</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h5>Members</h5>
+                <ul class="list-group">
+                    {% for membership in organization.memberships.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ membership.user.get_full_name|default:membership.user.username }}
+                            <span class="badge bg-primary rounded-pill">{{ membership.get_role_display }}</span>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">No members</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

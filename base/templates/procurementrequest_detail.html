@@ -1,0 +1,102 @@
+{% extends 'main.html' %}
+{% block title %}{{ request_obj.title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h3 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>{{ request_obj.title }}</h3>
+        <div>
+            <a href="{% url 'comment_create' request_obj.pk %}" class="btn btn-info btn-sm"><i class="fas fa-comment"></i> Add Comment</a>
+            {% if request_obj.status == 'WAITING_REVIEW' and request_obj.human_review %}
+                <a href="{% url 'human_review_update' %}?request_id={{ request_obj.pk }}" class="btn btn-warning btn-sm"><i class="fas fa-check-circle"></i> Review</a>
+            {% endif %}
+            <a href="{% url 'procurementrequest_list' %}" class="btn btn-light btn-sm"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-borderless">
+                    <tr><th width="35%">Status:</th><td><span class="badge bg-{% if request_obj.status == 'COMPLETED' %}success{% elif request_obj.status == 'FAILED' %}danger{% elif request_obj.status == 'WAITING_REVIEW' %}warning{% else %}secondary{% endif %}">{{ request_obj.get_status_display }}</span></td></tr>
+                    <tr><th>Priority:</th><td><span class="badge bg-{% if request_obj.priority == 'URGENT' %}danger{% elif request_obj.priority == 'HIGH' %}warning{% else %}secondary{% endif %}">{{ request_obj.get_priority_display }}</span></td></tr>
+                    <tr><th>Organization:</th><td>{{ request_obj.organization.name }}</td></tr>
+                    <tr><th>Submitted By:</th><td>{{ request_obj.submitted_by.get_full_name|default:request_obj.submitted_by.username }}</td></tr>
+                    <tr><th>Assigned Manager:</th><td>{{ request_obj.assigned_manager|default:"Not assigned" }}</td></tr>
+                    <tr><th>Budget:</th><td>{{ request_obj.currency }} {{ request_obj.max_budget|floatformat:2 }}</td></tr>
+                    <tr><th>Created:</th><td>{{ request_obj.created_at|date:"Y-m-d H:i" }}</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h5>Required Certifications</h5>
+                <ul class="list-group">
+                    {% for cert in request_obj.required_certifications.all %}
+                        <li class="list-group-item">{{ cert.name }}</li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">None</li>
+                    {% endfor %}
+                </ul>
+                <h5 class="mt-3">Tags</h5>
+                <ul class="list-group">
+                    {% for tag in request_obj.tags.all %}
+                        <li class="list-group-item">{{ tag.name }}</li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">None</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <h5>Requirement Prompt</h5>
+                <div class="bg-light p-3 rounded">{{ request_obj.requirement_prompt|linebreaks }}</div>
+            </div>
+        </div>
+
+        {% if request_obj.business_justification %}
+        <div class="row mt-3">
+            <div class="col-12">
+                <h5>Business Justification</h5>
+                <div class="bg-light p-3 rounded">{{ request_obj.business_justification|linebreaks }}</div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if request_obj.failure_reason %}
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <strong>Failure Reason:</strong> {{ request_obj.failure_reason }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Comments Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h4><i class="fas fa-comments me-2"></i>Comments</h4>
+                {% for comment in request_obj.comments.all %}
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <strong>{{ comment.author.get_full_name|default:comment.author.username }}</strong>
+                                <small class="text-muted">{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+                            </div>
+                            <p class="mt-2">{{ comment.body|linebreaks }}</p>
+                            {% if comment.is_internal %}
+                                <span class="badge bg-secondary"><i class="fas fa-lock me-1"></i>Internal</span>
+                            {% else %}
+                                <span class="badge bg-info"><i class="fas fa-globe me-1"></i>Public</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-muted">No comments yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

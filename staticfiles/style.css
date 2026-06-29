@@ -1,0 +1,763 @@
+/* ========================================
+   ProcureMind - Glassmorphism & Neumorphism
+   Modern UI for Agentic Procurement System
+   ======================================== */
+
+/* ---------- CSS Variables ---------- */
+:root {
+    --primary: #4361ee;
+    --primary-dark: #3a56d4;
+    --primary-light: #7b93f5;
+    --secondary: #7209b7;
+    --accent: #f72585;
+    --success: #06d6a0;
+    --warning: #ffd166;
+    --danger: #ef476f;
+    --info: #118ab2;
+    
+    --bg-primary: #f8f9fe;
+    --bg-card: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: rgba(67, 97, 238, 0.15);
+    
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a4a6a;
+    --text-light: #8a8aaa;
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    
+    --shadow-sm: 0 2px 10px rgba(67, 97, 238, 0.08);
+    --shadow-md: 0 8px 30px rgba(67, 97, 238, 0.12);
+    --shadow-lg: 0 15px 50px rgba(67, 97, 238, 0.15);
+    --shadow-glow: 0 0 40px rgba(67, 97, 238, 0.2);
+    
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Reset & Base ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    background-image: 
+        radial-gradient(ellipse at 10% 20%, rgba(67, 97, 238, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(114, 9, 183, 0.05) 0%, transparent 50%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* ---------- Main Content Spacing ---------- */
+main {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    min-height: calc(100vh - 200px);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+    margin-top: 40px !important;
+    padding: 20px 0 !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(67, 97, 238, 0.05);
+}
+
+/* ---------- Glassmorphism Card ---------- */
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    overflow: visible !important;  /* Allow dropdowns to overflow */
+    margin-bottom: 25px;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border: none;
+    padding: 1.2rem 1.8rem;
+    color: white;
+}
+
+.card-header h3 {
+    color: white;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.card-header h3 i {
+    opacity: 0.9;
+}
+
+.card-body {
+    padding: 1.8rem;
+    overflow: visible !important;  /* Allow dropdowns to overflow */
+}
+
+/* ---------- Glass Buttons ---------- */
+.btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: var(--transition);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(67, 97, 238, 0.4);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #06d6a0 0%, #00b894 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(6, 214, 160, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(6, 214, 160, 0.4);
+    color: white;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffd166 0%, #f59f00 100%);
+    color: #1a1a2e;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    color: #1a1a2e;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef476f 0%, #d62828 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(239, 71, 111, 0.3);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(239, 71, 111, 0.4);
+    color: white;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #118ab2 0%, #0a7a9e 100%);
+    color: white;
+}
+
+.btn-info:hover {
+    transform: translateY(-2px);
+    color: white;
+}
+
+.btn-secondary {
+    background: rgba(26, 26, 46, 0.1);
+    color: var(--text-secondary);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(26, 26, 46, 0.2);
+    color: var(--text-primary);
+}
+
+.btn-light {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary);
+    border: 1px solid rgba(67, 97, 238, 0.2);
+}
+
+.btn-light:hover {
+    background: white;
+    box-shadow: var(--shadow-sm);
+    color: var(--primary-dark);
+}
+
+.btn-sm {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+/* ---------- Glass Table ---------- */
+.table {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.table thead th {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border: none;
+    padding: 1rem 1.2rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+    transition: var(--transition);
+    border-bottom: 1px solid rgba(67, 97, 238, 0.05);
+}
+
+.table tbody tr:hover {
+    background: rgba(67, 97, 238, 0.05);
+    transform: scale(1.002);
+}
+
+.table tbody td {
+    padding: 0.9rem 1.2rem;
+    vertical-align: middle;
+    color: var(--text-secondary);
+}
+
+.table tbody td strong {
+    color: var(--text-primary);
+}
+
+.table-responsive {
+    overflow: visible !important;
+}
+
+/* ---------- Glass Inputs ---------- */
+input, select, textarea {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(67, 97, 238, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 1rem;
+    width: 100%;
+    transition: var(--transition);
+    color: var(--text-primary);
+    font-family: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+    outline: none;
+    background: white;
+}
+
+/* ---------- Glass Badges ---------- */
+.badge {
+    padding: 0.4rem 0.9rem;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.badge.bg-success {
+    background: linear-gradient(135deg, #06d6a0 0%, #00b894 100%) !important;
+    color: white;
+}
+
+.badge.bg-danger {
+    background: linear-gradient(135deg, #ef476f 0%, #d62828 100%) !important;
+    color: white;
+}
+
+.badge.bg-warning {
+    background: linear-gradient(135deg, #ffd166 0%, #f59f00 100%) !important;
+    color: #1a1a2e;
+}
+
+.badge.bg-info {
+    background: linear-gradient(135deg, #118ab2 0%, #0a7a9e 100%) !important;
+    color: white;
+}
+
+.badge.bg-secondary {
+    background: rgba(74, 74, 106, 0.8) !important;
+    color: white;
+}
+
+/* ---------- Glass Alert ---------- */
+.alert {
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 1rem 1.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+}
+
+.alert-success {
+    background: rgba(6, 214, 160, 0.15);
+    border-left: 4px solid #06d6a0;
+    color: #0a7a4a;
+}
+
+.alert-danger {
+    background: rgba(239, 71, 111, 0.15);
+    border-left: 4px solid #ef476f;
+    color: #a8324a;
+}
+
+.alert-warning {
+    background: rgba(255, 209, 102, 0.15);
+    border-left: 4px solid #ffd166;
+    color: #8a6a0a;
+}
+
+.alert-info {
+    background: rgba(17, 138, 178, 0.15);
+    border-left: 4px solid #118ab2;
+    color: #0a5a7a;
+}
+
+/* ---------- Glass Navbar ---------- */
+.navbar {
+    background: rgba(26, 26, 46, 0.85) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.8rem 0;
+    min-height: 70px;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #4361ee;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-link:hover {
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+    transition: var(--transition);
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+/* ---------- Dropdown Fixes ---------- */
+.dropdown-menu {
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 0.5rem;
+    z-index: 1060 !important;
+    min-width: 220px;
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1.2rem;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.2) 0%, rgba(114, 9, 183, 0.2) 100%);
+    color: white;
+    transform: translateX(5px);
+}
+
+.dropdown-item i {
+    color: #7b93f5;
+}
+
+.nav-item.dropdown {
+    position: relative;
+}
+
+.navbar .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 5px;
+}
+
+/* ---------- Glass Pagination ---------- */
+.pagination {
+    gap: 0.3rem;
+}
+
+.page-link {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(67, 97, 238, 0.1);
+    border-radius: var(--radius-sm) !important;
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    transition: var(--transition);
+}
+
+.page-link:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .card-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .table {
+        font-size: 0.85rem;
+    }
+    
+    .btn {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .dropdown-menu {
+        min-width: 180px;
+    }
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* ---------- Container Overflow Fix ---------- */
+.container {
+    overflow: visible !important;
+}
+
+/* ========================================
+   COMPLETE DROPDOWN FIXES
+   ======================================== */
+
+/* Fix card overflow - allow dropdowns to show */
+.card {
+    overflow: visible !important;
+}
+
+.card-body {
+    overflow: visible !important;
+}
+
+/* Fix table responsive overflow */
+.table-responsive {
+    overflow: visible !important;
+}
+
+/* Ensure container allows overflow */
+.container {
+    overflow: visible !important;
+}
+
+/* Ensure main content doesn't clip dropdowns */
+main {
+    overflow: visible !important;
+}
+
+/* ---------- Navbar Dropdown Fixes ---------- */
+.navbar {
+    position: relative;
+    z-index: 1030;
+    min-height: 70px;
+}
+
+.nav-item.dropdown {
+    position: relative;
+}
+
+.navbar .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1060 !important;
+    margin-top: 5px;
+    min-width: 220px;
+    display: none;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Show dropdown when open */
+.navbar .dropdown-menu.show {
+    display: block;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+/* Dropdown items */
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.2) 0%, rgba(114, 9, 183, 0.2) 100%);
+    color: white;
+    transform: translateX(5px);
+}
+
+.dropdown-item i {
+    color: #7b93f5;
+    width: 20px;
+    text-align: center;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dropdown animation */
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fix for right-aligned dropdowns (user menu) */
+.dropdown-menu-end {
+    right: 0;
+    left: auto !important;
+}
+
+/* Ensure dropdowns are above everything */
+.navbar-nav .dropdown-menu {
+    z-index: 1060 !important;
+}
+
+/* Fix for dropdown in mobile view */
+@media (max-width: 992px) {
+    .navbar .dropdown-menu {
+        position: static;
+        background: rgba(26, 26, 46, 0.95);
+        border: none;
+        box-shadow: none;
+        padding-left: 1rem;
+    }
+    
+    .navbar .dropdown-menu .dropdown-item {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* ========================================
+   COMPLETE DROPDOWN & SPACING FIXES
+   ======================================== */
+
+/* Allow dropdowns to overflow containers */
+.card, .card-body, .table-responsive, .container, main {
+    overflow: visible !important;
+}
+
+/* Navbar dropdown fixes */
+.navbar {
+    position: relative;
+    z-index: 1030;
+    min-height: 70px;
+}
+
+.nav-item.dropdown {
+    position: relative;
+}
+
+.navbar .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1060 !important;
+    margin-top: 5px;
+    min-width: 220px;
+    display: none;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.navbar .dropdown-menu.show {
+    display: block;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.2) 0%, rgba(114, 9, 183, 0.2) 100%);
+    color: white;
+    transform: translateX(5px);
+}
+
+.dropdown-item i {
+    color: #7b93f5;
+    width: 20px;
+    text-align: center;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu-end {
+    right: 0;
+    left: auto !important;
+}
+
+/* Mobile view fix */
+@media (max-width: 992px) {
+    .navbar .dropdown-menu {
+        position: static;
+        background: rgba(26, 26, 46, 0.95);
+        border: none;
+        box-shadow: none;
+        padding-left: 1rem;
+    }
+    
+    .navbar .dropdown-menu .dropdown-item {
+        padding: 0.5rem 1rem;
+    }
+}

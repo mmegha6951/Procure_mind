@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% block title %}Delete API Integration{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h3 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Confirm Delete</h3>
+    </div>
+    <div class="card-body">
+        <p class="lead">Are you sure you want to delete the API integration <strong>"{{ object.name }}"</strong>?</p>
+        
+        <div class="alert alert-info mt-3">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Integration Details:</strong>
+            <ul class="mt-2 mb-0">
+                <li>Provider: {{ object.get_provider_display }}</li>
+                <li>Organization: {{ object.organization.name }}</li>
+                <li>Base URL: {{ object.base_url }}</li>
+                <li>Status: {% if object.is_active %}Active{% else %}Inactive{% endif %}</li>
+            </ul>
+        </div>
+        
+        <p class="text-danger mt-3">This action cannot be undone. Any workflows using this integration will be affected.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash me-1"></i>Yes, delete</button>
+            <a href="{% url 'apiintegration_list' %}" class="btn btn-secondary"><i class="fas fa-times me-1"></i>Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
